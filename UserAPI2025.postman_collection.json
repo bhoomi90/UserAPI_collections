@@ -1,0 +1,1105 @@
+{
+	"info": {
+		"_postman_id": "8259df4e-607e-4e20-9475-d051b92567cc",
+		"name": "UserAPI2025",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45421796"
+	},
+	"item": [
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getAllUsers') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}users",
+					"host": [
+						"{{BASEURL}}users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users with invalid endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getAllUsers') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}user",
+					"host": [
+						"{{BASEURL}}user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"if(pm.iterationData.get(\"scenarioType\") === 'createFirstUser') {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"userID\", jsonData.userId);\r",
+							"    pm.collectionVariables.set(\"userfirstname\", jsonData.userFirstName);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'createUser') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n   \"userFirstName\":\"{{userFirstName}}\",\r\n   \"userLastName\":\"{{userLastName}}\",\r\n   \"userContactNumber\":\"{{userContactNumber}}\",\r\n   \"userEmailId\":\"{{userEmailId}}\",\r\n   \"userAddress\":{\r\n     \"plotNumber\":\"{{plotNumber}}\",\r\n     \"street\":\"{{street}}\",\r\n     \"state\":\"{{state}}\",\r\n     \"country\":\"{{country}}\",\r\n     \"zipCode\":\"{{zipCode}}\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}createusers",
+					"host": [
+						"{{BASEURL}}createusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getUserByID') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}user/:id",
+					"host": [
+						"{{BASEURL}}user"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{userID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by invalid endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getUserByID') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}use/:id",
+					"host": [
+						"{{BASEURL}}use"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{userID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by invalid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getUserByID') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}user/:id",
+					"host": [
+						"{{BASEURL}}user"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "123$5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by first name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'getUserByFirstname') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}users/username/{{userfirstname}}",
+					"host": [
+						"{{BASEURL}}users"
+					],
+					"path": [
+						"username",
+						"{{userfirstname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user address with patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"if(expectedStatusCode == 200) {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"userAddress is present in response\", function () {\r",
+							"        try {\r",
+							"            pm.expect(jsonData).to.have.property(\"userAddress\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"addressId\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"plotNumber\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"street\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"state\");\r",
+							"        } catch (e) {\r",
+							"            pm.expect.fail(\"userAddress or response is not valid JSON\");\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    if (pm.iterationData.get(\"scenarioType\") == 'streetPatch') {\r",
+							"        pm.test(\"Actual street matches expected value\", function() {\r",
+							"            try {\r",
+							"            pm.expect(jsonData.userAddress.street).to.eql(pm.iterationData.get(\"street\"));\r",
+							"            } catch (e) {\r",
+							"                pm.expect.fail(\"Actual street does not match expected value\");\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"    else if (pm.iterationData.get(\"scenarioType\") == 'statePatch'){\r",
+							"        pm.test(\"Actual state matches expected value\", function() {\r",
+							"            try {\r",
+							"                pm.expect(jsonData.userAddress.state).to.eql(pm.iterationData.get(\"state\"));\r",
+							"            } catch (e) {\r",
+							"                pm.expect.fail(\"Actual state does not match expected value\");\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"let skipRequest = 0;\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'updateUserWithPatch') {\r",
+							"    skipRequest = 1;\r",
+							"    pm.execution.skipRequest();\r",
+							"}\r",
+							"\r",
+							"if(!skipRequest) {\r",
+							"    let fieldToUpdate = pm.iterationData.get(\"scenarioType\");\r",
+							"    let street = pm.iterationData.get(\"street\");\r",
+							"    let state = pm.iterationData.get(\"state\");\r",
+							"\r",
+							"    let requestBody = { \"userAddress\": {} };\r",
+							"\r",
+							"    if (fieldToUpdate === \"streetPatch\" && street) {\r",
+							"        requestBody.userAddress.street = street;\r",
+							"    }\r",
+							"\r",
+							"    if (fieldToUpdate === \"statePatch\" && state) {\r",
+							"        requestBody.userAddress.state = state;\r",
+							"    }\r",
+							"\r",
+							"    pm.variables.set(\"dynamicBody\", JSON.stringify(requestBody));\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{{dynamicBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}updateuserfields/{{userID}}",
+					"host": [
+						"{{BASEURL}}updateuserfields"
+					],
+					"path": [
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user details with patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"if(expectedStatusCode == 200) {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"userAddress is present in response\", function () {\r",
+							"        try {\r",
+							"            pm.expect(jsonData).to.have.property(\"userAddress\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"addressId\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"plotNumber\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"street\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"state\");\r",
+							"        } catch (e) {\r",
+							"            pm.expect.fail(\"userAddress or response is not valid JSON\");\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    if (pm.iterationData.get(\"scenarioType\") == 'streetPatch') {\r",
+							"        pm.test(\"Actual street matches expected value\", function() {\r",
+							"            try {\r",
+							"            pm.expect(jsonData.userAddress.street).to.eql(pm.iterationData.get(\"street\"));\r",
+							"            } catch (e) {\r",
+							"                pm.expect.fail(\"Actual street does not match expected value\");\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"\r",
+							"    if (pm.iterationData.get(\"scenarioType\") == 'statePatch'){\r",
+							"        pm.test(\"Actual state matches expected value\", function() {\r",
+							"            try {\r",
+							"                pm.expect(jsonData.userAddress.state).to.eql(pm.iterationData.get(\"state\"));\r",
+							"            } catch (e) {\r",
+							"                pm.expect.fail(\"Actual state does not match expected value\");\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"\r",
+							"    if (pm.iterationData.get(\"scenarioType\") == 'FirstnamePatch'){\r",
+							"        pm.test(\"Actual firstname matches expected value\", function() {\r",
+							"            try {\r",
+							"                pm.expect(jsonData.userFirstName).to.eql(pm.iterationData.get(\"userFirstName\"));\r",
+							"            } catch (e) {\r",
+							"                pm.expect.fail(\"Actual firstname does not match expected value\");\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"\r",
+							"if(pm.iterationData.get(\"scenarioType\") === 'invalidFirstnamePatch') {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"400 BAD_REQUEST\");\r",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid first name format\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"let skipRequest = 0;\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'updateUserDetailWithPatch') {\r",
+							"    skipRequest = 1;\r",
+							"    pm.execution.skipRequest();\r",
+							"}\r",
+							"\r",
+							"if(!skipRequest) {\r",
+							"    let fieldToUpdate = pm.iterationData.get(\"scenarioType\");\r",
+							"    let userFirstName = pm.iterationData.get(\"userFirstName\");\r",
+							"\r",
+							"    let requestBody = {};\r",
+							"\r",
+							"    if ((fieldToUpdate === \"invalidFirstnamePatch\" || fieldToUpdate === \"FirstnamePatch\") && userFirstName)  {\r",
+							"        requestBody.userFirstName = userFirstName;\r",
+							"    }\r",
+							"\r",
+							"    pm.variables.set(\"dynamicBody\", JSON.stringify(requestBody));\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{{dynamicBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}updateuserfields/{{userID}}",
+					"host": [
+						"{{BASEURL}}updateuserfields"
+					],
+					"path": [
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user with Put",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'updateUserWithPut') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"if(expectedStatusCode == 200) {   \r",
+							"\r",
+							"    pm.test(\"userAddress is present in response\", function () {\r",
+							"        try {\r",
+							"            pm.expect(jsonData).to.have.property(\"userFirstName\");\r",
+							"            pm.expect(jsonData).to.have.property(\"userLastName\");\r",
+							"            pm.expect(jsonData).to.have.property(\"userEmailId\");\r",
+							"            pm.expect(jsonData).to.have.property(\"userAddress\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"addressId\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"plotNumber\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"street\");\r",
+							"            pm.expect(jsonData.userAddress).to.have.property(\"state\");\r",
+							"        } catch (e) {\r",
+							"            pm.expect.fail(\"userAddress or response is not valid JSON\");\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"  \r",
+							"    pm.test(\"Actual user details matches expected value\", function() {\r",
+							"        try {\r",
+							"            pm.expect(jsonData.userFirstName).to.eql(pm.iterationData.get(\"userFirstName\"));\r",
+							"            pm.expect(jsonData.userLastName).to.eql(pm.iterationData.get(\"userLastName\"));\r",
+							"            pm.expect(jsonData.userEmailId).to.eql(pm.iterationData.get(\"userEmailId\"));\r",
+							"        } catch (e) {\r",
+							"            pm.expect.fail(\"Actual user details does not match expected value\");\r",
+							"        }\r",
+							"    });\r",
+							"    pm.test(\"Actual userAddress matches expected value\", function() {\r",
+							"        try {\r",
+							"            pm.expect(jsonData.userAddress.street).to.eql(pm.iterationData.get(\"street\"));\r",
+							"            pm.expect(jsonData.userAddress.state).to.eql(pm.iterationData.get(\"state\"));\r",
+							"            pm.expect(jsonData.userAddress.zipCode).to.eql(pm.iterationData.get(\"zipCode\"));\r",
+							"        } catch (e) {\r",
+							"            pm.expect.fail(\"Actual street does not match expected value\");\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"if(pm.iterationData.get(\"scenarioType\") === \"invalidContactPut\") {\r",
+							"    pm.expect(jsonData.status).to.eql(\"400 BAD_REQUEST\");\r",
+							"    pm.expect(jsonData.message).to.eql(\"Contact number is already in use by another user\");\r",
+							"}\r",
+							"\r",
+							"if(pm.iterationData.get(\"scenarioType\") === \"invalidEmailPut\") {\r",
+							"    pm.expect(jsonData.status).to.eql(\"400 BAD_REQUEST\");\r",
+							"    //pm.expect(jsonData.message).to.eql(\"Contact number is already in use by another user\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"userFirstName\":\"{{userFirstName}}\",\r\n   \"userLastName\":\"{{userLastName}}\",\r\n   \"userContactNumber\":\"{{userContactNumber}}\",\r\n   \"userEmailId\":\"{{userEmailId}}\",\r\n   \"userAddress\":{\r\n     \"plotNumber\":\"{{plotNumber}}\",\r\n     \"street\":\"{{street}}\",\r\n     \"state\":\"{{state}}\",\r\n     \"country\":\"{{country}}\",\r\n     \"zipCode\":\"{{zipCode}}\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}updateuser/{{userID}}",
+					"host": [
+						"{{BASEURL}}updateuser"
+					],
+					"path": [
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'deleteUserByID') {\r",
+							"    pm.execution.skipRequest();\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}deleteuser/:userId",
+					"host": [
+						"{{BASEURL}}deleteuser"
+					],
+					"path": [
+						":userId"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "24",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "{{userID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by firstname",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let expectedStatusCode = pm.iterationData.get(\"expectedStatusCode\");\r",
+							"console.log(\"Expected status code: \" + expectedStatusCode);\r",
+							"\r",
+							"pm.test(\"Validate actual and expected Status code\", function() {\r",
+							"    pm.expect(pm.response.code).to.eql(expectedStatusCode);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"let actualMethod = pm.request.method.toUpperCase();\r",
+							"let expectedMethod = pm.iterationData.get(\"requestMethod\").toUpperCase();\r",
+							"let expectedOperation = pm.iterationData.get(\"requestOperation\");\r",
+							"console.log(\"expectedOperation is = \" +expectedOperation);\r",
+							"\r",
+							"let skipRequest=0;\r",
+							"\r",
+							"if (actualMethod !== expectedMethod || expectedOperation !== 'deleteUserByName') {\r",
+							"    skipRequest=1;\r",
+							"    pm.execution.skipRequest();\r",
+							"}\r",
+							"\r",
+							"if(!skipRequest) {\r",
+							"    pm.variables.set(\"userFirstName\", pm.iterationData.get(\"userFirstName\"));\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASEURL}}deleteuser/username/{{userFirstName}}",
+					"host": [
+						"{{BASEURL}}deleteuser"
+					],
+					"path": [
+						"username",
+						"{{userFirstName}}"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "24",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userName",
+			"value": ""
+		},
+		{
+			"key": "passWord",
+			"value": ""
+		},
+		{
+			"key": "BASEURL",
+			"value": ""
+		},
+		{
+			"key": "userID",
+			"value": ""
+		},
+		{
+			"key": "userfirstname",
+			"value": ""
+		}
+	]
+}
