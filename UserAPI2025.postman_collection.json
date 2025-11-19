@@ -1083,15 +1083,15 @@
 	"variable": [
 		{
 			"key": "userName",
-			"value": ""
+			"value": "Numpy@gmail.com"
 		},
 		{
 			"key": "passWord",
-			"value": ""
+			"value": "november@2025"
 		},
 		{
 			"key": "BASEURL",
-			"value": ""
+			"value": "https://userserviceapp-f5a54828541b.herokuapp.com/uap/"
 		},
 		{
 			"key": "userID",
